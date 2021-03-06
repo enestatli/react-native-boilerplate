@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Appearance, AppState, StatusBar } from 'react-native'
+import React, { useState } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import {
   DarkTheme,
@@ -11,8 +10,11 @@ import MainNavigator from '@/navigators/Main'
 import { MyDarkTheme, MyTheme } from '../theme'
 
 //TODO: use npx create-react-native-app!!!
+//TODO: one more with expo
+//TODO: https://www.npmjs.com/package/react-native-responsive-dimensions use!
 
 import { Splash } from '@/screens'
+import { useDeviceMode } from '../hooks'
 
 const Stack = createStackNavigator()
 
@@ -20,28 +22,7 @@ const Stack = createStackNavigator()
 
 const ApplicationNavigator = () => {
   const [isApplicationLoaded, setIsApplicationLoaded] = useState(false)
-  const [deviceMode, setDeviceMode] = useState(Appearance.getColorScheme())
-  const appState = useRef(AppState.currentState)
-
-  useEffect(() => {
-    AppState.addEventListener('change', _handleAppStateChange)
-
-    return () => {
-      AppState.removeEventListener('change', _handleAppStateChange)
-    }
-  }, [])
-
-  const _handleAppStateChange = (nextAppState) => {
-    if (
-      appState.current.match(/inactive|background/) &&
-      nextAppState === 'active'
-    ) {
-      setDeviceMode(Appearance.getColorScheme())
-    }
-
-    appState.current = nextAppState
-    setDeviceMode(Appearance.getColorScheme())
-  }
+  const { deviceMode } = useDeviceMode()
 
   // useEffect(() => {
   //   if (MainNavigator === undefined) {
@@ -61,9 +42,8 @@ const ApplicationNavigator = () => {
 
   return (
     <NavigationContainer
-      theme={deviceMode === 'dark' ? MyDarkTheme : MyTheme}
+      theme={deviceMode === 'dark' ? DarkTheme : DefaultTheme}
       ref={navigationRef}>
-      <StatusBar backgroundColor={deviceMode === 'dark' ? 'black' : 'white'} />
       <Stack.Navigator
         screenOptions={() => {
           return {
