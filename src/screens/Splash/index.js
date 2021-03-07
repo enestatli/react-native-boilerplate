@@ -1,11 +1,14 @@
 import React from 'react'
-import { useTheme } from '@react-navigation/native'
-import { View } from 'react-native'
 
-const SplashScreen = () => {
+import { Image, Text, View } from 'react-native'
+import { GlobalView } from '../../components'
+
+const Splash = () => {
   return (
-    <View style={{ flex: 1, backgroundColor: useTheme().colors.primary }} />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Splash Screen</Text>
+    </View>
   )
 }
 
-export default SplashScreen
+export default Splash

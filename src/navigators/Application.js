@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import {
   DarkTheme,
@@ -13,8 +13,9 @@ import { MyDarkTheme, MyTheme } from '../theme'
 //TODO: one more with expo
 //TODO: https://www.npmjs.com/package/react-native-responsive-dimensions use!
 
-import { Splash } from '@/screens'
 import { useDeviceMode } from '../hooks'
+import { AuthContext } from '../providers'
+import Splash from '../screens/Splash'
 
 const Stack = createStackNavigator()
 
@@ -23,6 +24,9 @@ const Stack = createStackNavigator()
 const ApplicationNavigator = () => {
   const [isApplicationLoaded, setIsApplicationLoaded] = useState(false)
   const { deviceMode } = useDeviceMode()
+  const { state, authMethods } = useContext(AuthContext)
+
+  console.log(state)
 
   // useEffect(() => {
   //   if (MainNavigator === undefined) {
@@ -39,6 +43,10 @@ const ApplicationNavigator = () => {
   //   },
   //   [],
   // )
+
+  if (state.isLoading) {
+    return <Splash />
+  }
 
   return (
     <NavigationContainer
