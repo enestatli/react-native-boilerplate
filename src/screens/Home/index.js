@@ -1,16 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { GlobalView, Header } from '../../components'
+import { GlobalView } from '../../components'
 
 const Home = () => {
   return (
     <GlobalView>
       <View style={styles.container}>
-        <Header />
-        <View style={styles.center}>
-          <Text>Home Page</Text>
-        </View>
+        <Text>Home Page</Text>
       </View>
     </GlobalView>
   )
@@ -22,6 +19,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  center: { flex: 1, justifyContent: 'center' },
 })
