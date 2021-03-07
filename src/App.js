@@ -2,9 +2,14 @@ import React from 'react'
 import codePush from 'react-native-code-push'
 
 import { ApplicationNavigator } from '@/navigators'
+import { AuthProvider } from '@/providers'
 
 const App = () => {
-  return <ApplicationNavigator />
+  return (
+    <AuthProvider>
+      <ApplicationNavigator />
+    </AuthProvider>
+  )
 }
 
 //TODO: appcenter, react-native-bootsplash, react-native-codepush, react-native-localization, react-native-svg
